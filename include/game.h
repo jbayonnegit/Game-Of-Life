@@ -5,6 +5,9 @@
 # include <stdlib.h>
 # include <unistd.h>
 
+# define HEIGHT 720
+# define WIDTH 1920
+
 typedef struct s_game
 {
 	SDL_Window		*window;
@@ -16,5 +19,6 @@ void	window_loading(t_game *game);
 void	window_clear(t_game *game);
 
 t_game	*ctx_init(void);
+int		**map_init(void);
 
 #endif
