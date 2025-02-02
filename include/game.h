@@ -6,7 +6,7 @@
 # include <unistd.h>
 
 # define HEIGHT 720
-# define WIDTH 1920
+# define WIDTH 1280
 
 typedef struct s_game
 {
@@ -20,5 +20,7 @@ void	window_clear(t_game *game);
 
 t_game	*ctx_init(void);
 int		**map_init(void);
+void	rand_map(int **map);
+void	draw_grid(SDL_Renderer *renderer, int **map);
 
 #endif

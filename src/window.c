@@ -14,10 +14,32 @@ void	window_loading(t_game *game)
 		exit(EXIT_FAILURE);
 	}
 	game->render = SDL_CreateRenderer(game->window, -1, SDL_RENDERER_ACCELERATED);
-	if (!game->window)
+	if (!game->render)
 	{	
 		fprintf(stderr, "SDL RENDER ERROR : %s", SDL_GetError());
 		exit(EXIT_FAILURE);
+	}
+}
+
+void	draw_grid(SDL_Renderer *renderer, int **map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < HEIGHT / 10)
+	{
+		j = 0;
+		while (j < WIDTH / 10)
+		{
+			SDL_Rect cell =  {j * 10, i * 10, 10, 10};
+            SDL_SetRenderDrawColor(renderer, map[i][j] ? 255 : 0, map[i][j] ? 255 : 0,map[i][j] ? 255 : 0, 255);
+            SDL_RenderFillRect(renderer, &cell);
+            SDL_SetRenderDrawColor(renderer, 50, 50, 50, 255);
+            SDL_RenderDrawRect(renderer, &cell);
+			j++;
+		}
+		i++;
 	}
 }
 
