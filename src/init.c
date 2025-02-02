@@ -8,7 +8,14 @@ t_game	*ctx_init(void)
 	if (!game)
 	{
 		perror("CTX INIT FAILED");
-		exit(EXIT_FAILURE) ;
+		return (NULL);
+	}
+	game->map = map_init();
+	game->map_next = map_init();
+	if (!game->map || !game->map_next)
+	{
+		freegame(game);
+		return (NULL);
 	}
 	return (game);
 }
