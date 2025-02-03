@@ -8,7 +8,7 @@ void	window_loading(t_game *game)
 		freegame(game);
 		exit(EXIT_FAILURE);
 	}
-	game->window = SDL_CreateWindow("Le jeu de la vie", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 720, SDL_WINDOW_SHOWN);
+	game->window = SDL_CreateWindow("Le jeu de la vie", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WIDTH, HEIGHT, SDL_WINDOW_SHOWN);
 	if (!game->window)
 	{
 		fprintf(stderr, "SDL WIMDOW ERROR : %s", SDL_GetError());

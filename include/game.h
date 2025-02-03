@@ -5,8 +5,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# define HEIGHT 720
-# define WIDTH 1280
+# define HEIGHT 1920
+# define WIDTH 1080
 
 typedef struct s_game
 {

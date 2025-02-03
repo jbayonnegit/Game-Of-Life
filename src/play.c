@@ -58,25 +58,38 @@ void new_map(int **map, int **map_next)
 	}
 }
 
+void    handle_mouse(SDL_MouseButtonEvent *mouse, int **tmp)
+{
+	if (mouse->state == SDL_RELEASED)
+	{
+		if (tmp[mouse->y][mouse->x] == 0)
+		{
+			tmp[mouse->y][mouse->x] = 1;
+		}
+	}
+}
+
 void	run_game(t_game *game)
 {
 	int	        i;
+	int			x;
+	int			y;
 	int	        **tmp;
-    int         run;
-    SDL_Event   event;
+	int         run;
+	SDL_Event   event;
 
 	rand_map(game->map);
 	run = 1;
-    i = 0;
+	i = 0;
 	tmp = game->map;
 	while (run)
 	{
 		if (i == 100)
 			i = 0;
 		SDL_RenderClear(game->render);
-        draw_grid(game->render, tmp);
-        SDL_RenderPresent(game->render);
-        SDL_Delay(200);
+		draw_grid(game->render, tmp);
+		SDL_RenderPresent(game->render);
+		SDL_Delay(160);
 		if (i % 2 == 0)
 		{
 			new_map(game->map, game->map_next);
@@ -87,18 +100,32 @@ void	run_game(t_game *game)
 			new_map(game->map_next, game->map);
 			tmp = game->map;
 		}
+		while(SDL_PollEvent(&event))
+		{
+			if (event.type == SDL_WINDOWEVENT)
+			{
+				if (event.window.event == SDL_WINDOWEVENT_CLOSE )
+				{
+					window_clear(game);
+					run = 0;
+					break;
+				}
+			}
+			if (event.type == SDL_MOUSEBUTTONDOWN)
+			{
+				SDL_GetMouseState(&y, &x);
+				if ( SDL_BUTTON_LEFT == event.button.button)
+				{
+					if (tmp[x / 10][y / 10] == 0)
+						tmp[x / 10][y / 10] = 1;
+				}
+				if (i % 2 == 0)
+					game->map_next = tmp;
+				else
+					game->map = tmp;
+				 break;
+			}
+		}
 		i++;
-        while(SDL_PollEvent(&event))
-        {
-            if (event.type == SDL_WINDOWEVENT)
-            {
-                if (event.window.event == SDL_WINDOWEVENT_CLOSE )
-                {
-                    window_clear(game);
-                    run = 0;
-                    break;
-                }
-            }
-        }
 	}
 }
